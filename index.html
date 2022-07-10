@@ -265,8 +265,9 @@
                      <h2>Downloads <span class="white"></span></h2>
                   </div>
                   <div class="cont">
-                     <span>WebTube v1.3</span>
-                     <a href=https://cdn.discordapp.com/attachments/957639508172611688/959759570664828958/webtube_v1.3.apk>Download</a>
+                     <span>WebTube <span id="version"></span></span>
+
+                     <a href="#" id="dl_link">Download</a>
                   </div>
                </div>
                
@@ -333,6 +334,19 @@ WebTube is not affiliated in any way with Google/YouTube</p>
          $(this).children("span").text(this.toggle ? "-" : "+");
          return false;
          });
+      </script>
+
+      <script>
+         let version = document.getElementById("version");
+         let dl_link = document.getElementById("dl_link");
+
+         fetch("https://api.github.com/repos/thewebtube/webtube/releases/latest")
+         .then(response => response.json())
+         .then(data => {
+            version.innerHTML = data.tag_name;
+            dl_link.href = data.assets[0].browser_download_url;
+         });
+
       </script>
    </body>
 </html>
